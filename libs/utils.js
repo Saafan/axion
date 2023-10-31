@@ -1,3 +1,5 @@
+mongomodels = {}
+
 const slugify = (text)=>{
   const from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;"
   const to = "aaaaaeeeeeiiiiooooouuuunc------"
@@ -24,6 +26,31 @@ const slugify = (text)=>{
 const isNormalInteg = (str)=>{
 var n = Math.floor(Number(str));
 return n !== Infinity && String(n) === str && n >= 0;
+}
+  
+/**
+ * Check if a collection has a specific ID.
+ * @param {Object} collection - The collection to check.
+ * @param {string} field - The field to look for in the collection.
+ * @param {string} value - The value to check if exists or not
+ * @returns {object} - returns and error message if the value not found otherwise returns null
+ */
+const existingItem = async (collection, field, value) => {
+    const query = {};
+    query[field] = value;
+    let item = await collection.findOne(query);
+    return (item ? item : {error: `${collection.modelName} not found`});
+  }
+
+/**
+ * Get the user type from a collection using a specific ID.
+ * @param {Object} token - The user token containing the user ID.
+ * @returns {string|null} - The user type if found, or null if not found.
+ */
+const getUserTypeByToken = async (token) => {
+    let decodedUser = token;
+    let userId = decodedUser.userId;
+    return (await existingItem(this.mongomodels.user, "_id", userId)).type;
 }
 
 /**
@@ -134,7 +161,12 @@ const isChance = (max)=>{
     return min == value; 
 }
 
+ let setMongoModels = (value) => {
+  this.mongomodels = value;
+}
+
 module.exports = {
+  setMongoModels,
   slugify,
   getDeepValue,
   setDeepValue,
@@ -147,5 +179,6 @@ module.exports = {
   hrTime,
   match,
   isChance,
-
+  existingItem,
+  getUserTypeByToken
 }

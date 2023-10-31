@@ -12,15 +12,15 @@ module.exports = {
         length: {min: 3, max: 20},
         custom: 'username',
     },
+    name: {
+        path: 'name',
+        type: 'string',
+        length: {min: 1, max: 50},
+    },
     password: {
         path: 'password',
         type: 'string',
         length: {min: 8, max: 100},
-    },
-    email: {
-        path: 'email',
-        type: 'string',
-        length: {min:3, max: 100},
     },
     title: {
         path: 'title',
@@ -41,6 +41,11 @@ module.exports = {
         path: 'desc',
         type: 'string',
         length: {min:3, max: 2000}
+    },
+    address: {
+        path: 'address',
+        type: 'string',
+        length: {min:3, max: 500}
     },
     url: {
         path: 'url',
@@ -82,6 +87,7 @@ module.exports = {
         length: 13,
     },
     email: {
+        path: "email",
         type: 'String',
         regex: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     },
@@ -96,6 +102,17 @@ module.exports = {
             length: { min: 3, max: 100}
         }
     },
+    createdBy: {
+        path: 'createdBy',
+        type: 'String',
+        length: 24,
+    },
+    schoolId: {
+        path: 'schoolId',
+        type: 'String',
+        length: 24,
+    },
+    
     obj: {
         type: 'Object',
     },
